@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	{% extends "layout.html" %}
+	{% block content %}
+
+	<div class="login">
+		<h1>Logged In</h1>
+			{% if current_user.is_authenticated %}
+				You are now logged in, {{ current_user.id }}!
+			{% endif %}
+	</div>
+	{% endblock %}
+</body>
+</html>

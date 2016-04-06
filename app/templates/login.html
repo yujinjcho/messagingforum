@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	{% extends "layout.html" %}
+	{% block content %}
+
+	<div class="login">
+		<h1>Login</h1>
+			<form method='POST'>
+				
+				<input type='text' name='username' id='username' placeholder='username'></input>
+				
+				<input type='password' name='pw' id='pw' placeholder='password'></input>
+				
+				<input type='submit' name='submit'></input>
+
+			</form>
+	</div>
+	{% endblock %}
+</body>
+</html>

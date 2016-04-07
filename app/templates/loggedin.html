@@ -7,8 +7,8 @@
 
 	<div class="login">
 		<h1>Logged In</h1>
-			{% if current_user.is_authenticated %}
-				You are now logged in, {{ current_user.id }}!
+			{% if g.user %}
+				You are now logged in, {{ user["name"] }}!
 			{% endif %}
 	</div>
 	{% endblock %}

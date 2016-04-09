@@ -15,6 +15,7 @@
     <!-- Style -->
     <!-- MIGHT NEED TO COMBINE THIS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"> 
+    <link href="\static\css\stylesheet.css" rel="stylesheet"> 
 
     <!--[if IE]>
       <script type="text/javascript">
@@ -104,7 +105,8 @@
 	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   <script>
     document.getElementById('logout').onclick = function() {
-        FB.logout(function(response) { });
+        FB.logout(function(response) {
+        });
     };
   </script>
 

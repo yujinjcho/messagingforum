@@ -6,8 +6,28 @@
 	{% block content %}
 
 	<div class="home">
-		<h1>Howdy</h1>
-		<p>This is text</p>
+		
+		<div class="form-group">
+		  
+	  	<form method='POST'>
+	  		<label for="comment">Say Something:</label>
+	  		<textarea name="post" class="form-control" rows="2" id="comment"></textarea>
+	  		<input id="submit" class="btn btn-primary" type="submit" value="Submit">
+	  	</form>
+		  		
+		  <hr>
+
+		  {% for post in posts %}
+		  	<p>{{ post.text }} </p>
+		  	<p>{{ post.author }} on {{ post.created.month }}/{{ post.created.day }}/{{ post.created.year }}</p>
+		  	<hr>
+		  {% endfor %}
+
+
+		</div>
+
+		
+
 	</div>
 	{% endblock %}
 </body>

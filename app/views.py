@@ -2,7 +2,7 @@ from facebook import get_user_from_cookie, GraphAPI
 from flask import g, render_template, redirect, request, session, url_for
 
 from app import app, db
-from models import User
+from models import User, Post
 
 # Facebook app details
 FB_APP_ID = '249808355359595'
@@ -10,19 +10,33 @@ FB_APP_NAME = 'pong'
 FB_APP_SECRET = '7333b000571f51030b2af8317173f509'
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     # If a user was set in the get_current_user function before the request,
     # the user is logged in.
-    if g.user:
-        return render_template('loggedin.html', app_id=FB_APP_ID,
-                               app_name=FB_APP_NAME, user=g.user)
+    if g.user and request.method == 'GET':
+        posts = Post.query.order_by(Post.created.desc())
+        return render_template('index.html', app_id=FB_APP_ID,
+                               app_name=FB_APP_NAME, user=g.user, posts=posts)
+
+    if request.method == 'POST':
+        message = request.form['post']
+        post = Post(author_id=session['user']['id'], text=message, author=session['user']['name'])
+        app.logger.info(post.id)
+        db.session.add(post)
+        db.session.commit()
+        posts = Post.query.order_by(Post.created.desc())
+        return render_template('index.html', app_id=FB_APP_ID,
+                               app_name=FB_APP_NAME, user=g.user, posts=posts)
+        #return session['user']['id']
+
     # Otherwise, a user is not logged in.
-    return render_template('index.html', app_id=FB_APP_ID, name=FB_APP_NAME)
+    return render_template('login.html', app_id=FB_APP_ID, name=FB_APP_NAME)
 
 @app.route('/about/')
 def about():
   return render_template('about.html', user=g.user)
+
 
 @app.route('/logout')
 def logout():
